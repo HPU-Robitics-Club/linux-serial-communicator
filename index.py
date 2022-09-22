@@ -1,4 +1,4 @@
-from serial_communicator import SerialCommunicator
+from serial_communicator import MotorCode, SerialCommunicator
 import keyboard
 
 def on_keyboard_press(key):
