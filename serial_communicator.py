@@ -2,7 +2,7 @@ import string
 import serial
 from enum import Enum
 
-PORT = 'COM3'
+PORT = '/dev/ttyACM0'
 DIVIDER = "|"
 BAUDRATE = 9600
 
