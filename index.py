@@ -1,5 +1,5 @@
-from serial_communicator import SerialCommunicator
+from serial_communicator import SerialCommunicator, MotorCode
 from controller_listener import registerControllerListener
 
-serial = SerialCommunicator()
+serial = SerialCommunicator() 
 registerControllerListener(serial)
