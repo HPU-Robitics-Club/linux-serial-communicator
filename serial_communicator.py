@@ -8,8 +8,7 @@ BAUDRATE = 115200
 
 class SerialCommunicator:
     def __init__(self):
-        print("Starting serial communicator...")
-        self.arduino = serial.Serial(PORT, BAUDRATE)
+        # self.arduino = serial.Serial(PORT, BAUDRATE)
         print("Starting serial communicator...")
 
         self.prev_left_speed = 0
@@ -17,7 +16,7 @@ class SerialCommunicator:
 
     def write(self, msg: str):
         code = f'{msg}{DIVIDER}'
-        self.arduino.write(code.encode())
+        # self.arduino.write(code.encode())
         print(f'{code}')
     
     def write_motor_command(self, left_motor_code: str, right_motor_code: str, left_motor_value: int, right_motor_value: int):

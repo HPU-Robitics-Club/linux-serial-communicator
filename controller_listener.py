@@ -1,5 +1,6 @@
 from approxeng.input.selectbinder import ControllerResource
 from serial_communicator import SerialCommunicator, MotorCode
+from time import sleep
 
 def registerControllerListener(serial: SerialCommunicator):
     while True:
@@ -22,13 +23,20 @@ def registerControllerListener(serial: SerialCommunicator):
                         ySine = abs(y)/y if y != 0 else 1
                         xSine = abs(x)/x if x != 0 else 1
 
-                        if abs(x) <= 0.5:
+                        if abs(x) <= 0.25:
                             leftSpeed = y * 127 + ySine * 128
                             rightSpeed = leftSpeed
                         else:
-                            leftSpeed = x * 127 + xSine * 128
-                            rightSpeed = -leftSpeed
-                    
+                            # Makes the forward turning joystick events have a little more leeway before going to the backward turning
+                            if ySine < 0 and y > -0.15:
+                                ySine = +1
+
+                            # Makes only one of the sides move for the turns, starting at 128
+                            if x > 0:
+                                leftSpeed = ySine * (x * 127 + xSine * 128)
+                            else:
+                                rightSpeed = -ySine * (x * 127 + xSine * 128)
+                                
                     # Parses and then send the parsed motor code
                     parseAndSendMotorCode(leftSpeed, rightSpeed, serial)
 
